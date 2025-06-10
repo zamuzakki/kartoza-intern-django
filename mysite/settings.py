@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1ml(%7f7el1s-^s0fq=&ov&=q7y^!spk*so2-1zz*=cb4+h^wk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'myapp'
 ]
 
 MIDDLEWARE = [
@@ -74,8 +76,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Use the PostGIS engine
+        'NAME': 'intern',  # Name of your PostgreSQL database
+        'USER': 'docker',  # Username to connect to the database
+        'PASSWORD': 'docker',  # Password to connect to the database
+        'HOST': '0.0.0.0',  # Host where your PostgreSQL server is running
+        'PORT': '32769',  # Port on which PostgreSQL is listening (default is 5432)
     }
 }
 
