@@ -6,8 +6,6 @@ SEX = (
     ('M', 'Male'),
 )
 
-from django.contrib.gis.db import models as gis_model
-
 class State(models.Model):
     name = models.CharField(max_length=100, unique=True)
     population = models.PositiveIntegerField(null=True, blank=True)
@@ -28,11 +26,17 @@ class Staff(models.Model):
         null=True,
         choices=SEX
     )
-    state = models.ForeignKey(State, models.DO_NOTHING, blank=True, null=True)
+    state = models.ForeignKey(State, models.CASCADE, blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = 'Companies'
+        verbose_name_plural = 'Staffs'
 
+    @classmethod
+    def do_something(cls):
+        print('hello')
+
+    def __str__(self):
+        return self.name
 
 
 class Lake(models.Model):
