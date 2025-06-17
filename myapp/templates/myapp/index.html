@@ -1,0 +1,14 @@
+<h1>Staff List</h1>
+
+{% if staff_list %}
+  <ul>
+    {% for staff in staff_list %}
+      <li><a href="/myapp/staff/{{ staff.id }}/">{{ staff.name }}, {{ staff.state.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No companies are available.</p>
+{% endif %}
+
+{#<a href={% url 'myapp:create' %}>Add New Staff</a>#}
+<a href='/myapp/staff/create/'>Add New Staff</a>
