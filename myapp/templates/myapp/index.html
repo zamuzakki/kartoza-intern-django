@@ -3,7 +3,7 @@
 {% if staff_list %}
   <ul>
     {% for staff in staff_list %}
-      <li><a href="/myapp/staff/{{ staff.id }}/">{{ staff.name }}, {{ staff.state.name }}</a></li>
+      <li><a href={% url 'myapp:detail' staff.id %}>{{ staff.name }}, {{ staff.state.name }}</a></li>
     {% endfor %}
   </ul>
 {% else %}

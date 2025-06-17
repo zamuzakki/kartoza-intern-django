@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Staff
 
@@ -12,7 +12,11 @@ def index(request):
 
 
 def detail(request, staff_id):
-    return HttpResponse('You are looking at the detail page.')
+    staff = get_object_or_404(Staff, pk=staff_id)
+    context = {
+        'staff': staff
+    }
+    return render(request, 'myapp/detail.html', context)
 
 
 def create(request):
