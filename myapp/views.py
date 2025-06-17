@@ -1,5 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+
+from .forms import StaffForm
 from .models import Staff
 
 # Create your views here.
@@ -20,4 +23,17 @@ def detail(request, staff_id):
 
 
 def create(request):
-    return HttpResponse('You are looking at the create page.')
+    if request.method == 'POST':
+        form = StaffForm(request.POST)
+        if form.is_valid():
+            company = form.save()
+            messages.success(request, 'Form submission successful')
+            return HttpResponseRedirect(
+                reverse('myapp:detail', args=[company.id])
+            )
+    else:
+        form = StaffForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'myapp/create.html', context)
