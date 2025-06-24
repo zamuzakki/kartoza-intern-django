@@ -23,17 +23,20 @@ def detail(request, staff_id):
 
 
 def create(request):
-    if request.method == 'POST':
-        form = StaffForm(request.POST)
-        if form.is_valid():
-            company = form.save()
-            messages.success(request, 'Form submission successful')
-            return HttpResponseRedirect(
-                reverse('myapp:detail', args=[company.id])
-            )
-    else:
+    # GET
+    if request.method == 'GET':
         form = StaffForm()
         context = {
             'form': form
         }
         return render(request, 'myapp/create.html', context)
+    elif request.method == 'POST':
+        form = StaffForm(request.POST)
+        if form.is_valid():
+            staff = form.save()
+            messages.success(request, 'Form submission successful')
+            return HttpResponseRedirect(
+                reverse('myapp:detail', args=[staff.id])
+            )
+    else:
+        return HttpResponse('Invalid request')
